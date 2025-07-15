@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Laporan NILAM</title>
+  <link rel="icon" href="logo.jpg">
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333; 
+      display: flex; /* For sticky footer */
+      flex-direction: column; /* For sticky footer */
+      min-height: 100vh; /* For sticky footer */
+
+      /* Library Background Styles */
+      background-image: url("library.jpg"); /* **IMPORTANT: Replace with your image path** */
+      background-size: cover; /* Cover the entire viewport */
+      background-position: center center; /* Center the image */
+      background-attachment: fixed; /* Keep background fixed when scrolling */
+      background-repeat: no-repeat; /* Do not repeat the image */
+    }
+
+    /* Optional: Add an overlay to make text more readable on busy backgrounds */
+    body::before {
+      content: "";
+      position: fixed; /* Use fixed to cover the entire viewport regardless of scroll */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7); /* White overlay with 70% opacity */
+      z-index: -1; /* Place it behind content but above the background image */
+    }
+
+    /* Header Styles */
+    header {
+      background-color: rgba(0, 90, 156, 0.85); /* Slightly transparent blue header background */
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+      position: relative; /* Ensure header is above the overlay if using one */
+      z-index: 1; /* Ensure header is above the overlay */
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1em;
+    }
+
+    /* Navigation Styles (from your provided snippet) */
+    nav {
+      background-color: #333; /* Solid dark background for nav */
+      padding: 10px 20px;
+      position: relative; /* Ensure nav is above the overlay */
+      z-index: 1; /* Ensure nav is above the overlay */
+    }
+
+    .navbar {
+      display: flex;
+      list-style: none;
+      margin: 0; /* Ensure no default margin from ul */
+      padding: 0; /* Ensure no default padding from ul */
+      justify-content: center; /* Center the navigation items */
+    }
+
+    .navbar li {
+      position: relative;
+    }
+
+    .navbar a {
+      display: block;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      background-color: #34495e; /* Hover background for main links */
+    }
+
+    /* Dropdown Styles (from your provided snippet) */
+    .dropdown-menu { /* Renamed from .dropdown to avoid conflict with li.dropdown */
+      display: none;
+      position: absolute;
+      background-color: #34495e; /* Darker background for dropdown */
+      min-width: 160px;
+      top: 100%; /* Position right below the parent li */
+      left: 0;
+      z-index: 2; /* Ensure dropdown is above other content and overlay */
+      list-style: none; /* Remove list style from dropdown ul */
+      padding: 0; /* Remove padding from dropdown ul */
+      margin: 0; /* Remove margin from dropdown ul */
+      border-radius: 0 0 5px 5px; /* Rounded corners only at bottom */
+      overflow: hidden; /* Ensures border-radius applies to children */
+      pointer-events: auto; /* Ensure clicks are enabled on dropdown content */
+    }
+
+    .dropdown-menu li {
+      width: 100%; /* Make dropdown list items take full width */
+    }
+
+    .dropdown-menu a {
+      padding: 10px 20px;
+      text-align: left; /* Align text to the left within dropdown */
+      font-weight: normal; /* Override bold from main nav if set */
+    }
+
+    /* Show dropdown on hover */
+    .navbar li:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Optional: Arrow for dropdowns */
+    .navbar a.dropdown-toggle::after {
+        content: ' \25BC'; /* Down arrow character */
+        font-size: 0.7em;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+
+
+    /* Main Content Styles */
+    .card-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      flex-grow: 1; /* Allows content to expand and push footer down */
+      position: relative; /* Ensure content is above the overlay */
+      z-index: 1; /* Ensure content is above the overlay */
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: 20px auto; /* Add margin to center it and separate from nav/footer */
+      max-width: 900px; /* Constrain width for better layout */
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for readability */
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #005a9c;
+      width: 200px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #0b3b7c; /* Dark blue from your image */
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #ffffff; /* White text */
+      margin-top: auto; /* Pushes the footer to the bottom */
+      position: relative; /* Ensure footer is above the overlay */
+      z-index: 1; /* Ensure footer is above the overlay */
+    }
+
+    footer p {
+      margin: 0; 
+    }
+
+    /* Responsive Styles (from your provided snippet) */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column; 
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: center; /* Center items when stacked */
+      }
+
+      .navbar li {
+        width: 100%;
+        text-align: center; /* Center main nav items */
+      }
+
+      .dropdown-menu {
+        position: static; /* Stack dropdown items in responsive view */
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .dropdown-menu a {
+        padding-left: 40px; /* Indent dropdown items */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>PROGRAM NILAM</h1>
+    <p>HI NEW FRIEND! WANT TO JOIN US? PLEASE FILL IN BELOW</p>
+  </header>
+
+  <nav>
+    <ul class="navbar"> <li><a href="index.html">Home</a></li>
+      <li><a href="aboutme.html">About Me</a></li>
+      <li><a href="newspaper.html">E-Newspaper</a></li>
+      <li class="dropdown">
+        <a href="nilam.html" class="dropdown-toggle">Nilam </a> <ul class="dropdown-menu">
+          <li><a href="Borrow books.html">Borrow and Return</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="event.html" class="dropdown-toggle">Events </a> <ul class="dropdown-menu"> <li><a href="books collection.html">Books</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="contact.html" class="dropdown-toggle">Contact </a> <ul class="dropdown-menu"> <li><a href="maklumat.html">Maklumat Sekolah</a></li>
+          <li><a href="sejarah.html">Sejarah Sekolah</a></li>
+          <li><a href="visi.html">Visi Misi</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <section class="card-grid">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSchOP10RrmyFfklnTWvnFiyNNTYp5tXw-z-O6Yoryx7EyDn4Q/viewform?usp=header" target="_blank" class="card">
+      <h3>WELCOMING</h3>
+    </a>
+  </section>
+  
+  <footer>
+    <p>This website for study purpose for code IMS458. Best Browser. Google Chrome. Best viewed on any displays &copy; All right reserve &copy;</p>
+  </footer>
+
+</body>
+</html>

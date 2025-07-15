@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nadiah - About Me</title>
+    <link rel="icon" href="logo.jpg">
+
+<style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9; /* Retaining the light background for this page */
+      color: #333;
+      display: flex; /* For sticky footer */
+      flex-direction: column; /* For sticky footer */
+      min-height: 100vh; /* For sticky footer */
+    }
+
+    header {
+      background-color: #003366; /* Dark blue from original header */
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    /* Navigation Styles - Integrated for dropdown */
+    nav {
+      background-color: #333; /* Dark background for nav */
+      padding: 10px 0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .navbar { /* Using .navbar for consistency with other pages */
+      display: flex;
+      list-style: none; /* Remove bullet points */
+      margin: 0;
+      padding: 0;
+      justify-content: center; /* Center the navigation items */
+    }
+
+    .navbar li {
+      position: relative; /* Needed for dropdown positioning */
+      display: inline-block; /* Crucial for stable dropdown hover/positioning */
+      margin: 0 15px; /* Spacing between main nav items */
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 15px; /* Added horizontal padding for a larger clickable area */
+      display: block; /* Make the whole link area clickable */
+    }
+
+    .navbar a:hover {
+      background-color: #34495e; /* Hover background for main links */
+      text-decoration: none; /* Remove underline on hover for consistent look with dropdowns */
+    }
+
+    /* Dropdown specific styles */
+    .dropdown-menu { /* Renamed for clarity and consistency */
+      display: none; /* Hidden by default */
+      position: absolute;
+      background-color: #34495e; /* Darker background for dropdown */
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 2; /* Ensure it appears above other content and main nav */
+      left: 0; /* Align dropdown with the left edge of the parent li */
+      border-radius: 5px;
+      overflow: hidden; /* Ensures border-radius applies to children */
+      margin: 0; /* Explicitly set margin to 0 to prevent gaps */
+      padding: 0; /* Ensure no default padding from ul */
+      list-style: none; /* Remove bullet points from dropdown ul */
+      pointer-events: auto; /* Ensure clicks are enabled */
+    }
+
+    .dropdown-menu li { /* Style for list items within dropdown */
+        width: 100%; /* Ensure li takes full width of dropdown-menu */
+    }
+
+    .dropdown-menu a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left; /* Align text to the left within dropdown */
+      font-weight: normal; /* Override bold from main nav */
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #555; /* Highlight on hover */
+      text-decoration: none;
+    }
+
+    /* Show dropdown on hover */
+    .navbar li:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Arrow for dropdowns */
+    .navbar a.dropdown-toggle::after {
+        content: ' \25BC'; /* Down arrow character */
+        font-size: 0.7em;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+
+    /* Main content styling for this page */
+    main {
+        flex-grow: 1; /* Allows main content to expand and push footer down */
+        padding: 20px 0; /* Add some padding to the main content area */
+    }
+
+    .hero { /* Your existing hero section, kept for reference but not directly used in the main content structure below */
+      background: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d') center/cover no-repeat;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 2px 2px 4px #000;
+      font-size: 2rem;
+    }
+
+    .resume-container {
+        padding: 40px 20px;
+        max-width: 800px; /* Adjusted max-width for content */
+        margin: 20px auto; /* Centered and separated from header/footer */
+        background-color: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        text-align: center; /* Center the "About Me" heading */
+    }
+
+    .resume-container h1 {
+        margin-bottom: 30px; /* Space below the main heading */
+        color: #003366; /* Match header color */
+    }
+
+    .resume-details {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        text-align: left; /* Align table content to left */
+    }
+
+    .resume-details th,
+    .resume-details td {
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
+
+    .resume-details th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        width: 30%; /* Give title column a fixed width */
+        color: #003366;
+    }
+
+    /* Image styling within main content */
+    main img {
+      display: block; /* Ensures it behaves as a block element for margin auto */
+      margin: 20px auto; /* Center the image and add vertical spacing */
+      width: 1500px; /* Retain original width intent, but ensure responsiveness */
+      max-width: 100%;
+      height: auto; /* Maintain aspect ratio */
+    }
+
+
+    footer {
+      background-color: #003366; /* Match header color */
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: auto; /* Push footer to the bottom */
+      position: relative;
+      z-index: 1;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive (Optional) */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .navbar li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .dropdown-menu a {
+        padding-left: 40px;
+      }
+
+      .resume-details th,
+      .resume-details td {
+          display: block; /* Stack table cells on small screens */
+          width: 100%;
+      }
+      .resume-details th {
+          text-align: center; /* Center header when stacked */
+          background-color: #e6e6e6; /* Lighter background for stacked headers */
+      }
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1>About Me</h1> <nav>
+            <ul class="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+                <li><a href="newspaper.html">E-Newspaper</a></li>
+                <li class="dropdown">
+                    <a href="nilam.html" class="dropdown-toggle">Nilam</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Borrow books.html">Borrow and Return</a></li>
+                        </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="event.html" class="dropdown-toggle">Events</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="books collection.html">Books</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="contact.html" class="dropdown-toggle">Contact</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="maklumat.html">Maklumat Sekolah</a></li>
+                        <li><a href="sejarah.html">Sejarah Sekolah</a></li>
+                        <li><a href="visi.html">Visi Misi</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+<main>
+    <img src="library.jpg" alt="headerfd">
+
+    <div class="resume-container">
+        <h1>About Me</h1>
+
+        <table class="resume-details">
+            <tr>
+                <th>Title</th>
+                <td>SCHOOL RESOURCE CENTRE WEB (CORPORATE WEBSITE)</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>NADIAH SYAHIRAH BINTI MD ZULMAN</td>
+            </tr>
+            <tr>
+                <th>Student ID</th>
+                <td>2024189065</td>
+            </tr>
+            <tr>
+                <th>Group</th>
+                <td>INDIVIDUAL ASSIGNMENT</td>
+            </tr>
+            <tr>
+                <th>Course Code</th>
+                <td>IMS458</td>
+            </tr>
+            <tr>
+                <th>Course Name</th>
+                <td>WEB DESIGN AND DEVELOPMENT</td>
+            </tr>
+            <tr>
+                <th>Program and Mode (e-PJJ)</th>
+                <td>CDIM 262</td>
+            </tr>
+            <tr>
+                <th>Faculty</th>
+                <td>COLLEGE OF COMPUTING, INFORMATICS AND MATHEMATICS</td>
+            </tr>
+            <tr>
+                <th>Submission Date</th>
+                <td>16 JULY 2025</td>
+            </tr>
+        </table>
+    </div>
+</main>
+<footer>
+  <p>This website for study purpose for code IMS458. Best Browser. Google Chrome. Best viewed on any displays &copy; All right reserve &copy;</p>
+</footer>
+</body>
+</html>

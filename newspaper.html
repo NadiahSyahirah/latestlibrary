@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Akhbar Digital</title>
+  <link rel="icon" href="logo.jpg">
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      display: flex; /* For sticky footer */
+      flex-direction: column; /* For sticky footer */
+      min-height: 100vh; /* For sticky footer */
+
+      /* Background Styles for Newspaper Page */
+      background-image: url("library.jpg"); /* **IMPORTANT: Replace with your image path** */
+      background-size: cover; /* Cover the entire viewport */
+      background-position: center center; /* Center the image */
+      background-attachment: fixed; /* Keep background fixed when scrolling */
+      background-repeat: no-repeat; /* Do not repeat the image */
+    }
+
+    /* Optional: Add an overlay to make content more readable on busy backgrounds */
+    body::before {
+      content: "";
+      position: fixed; /* Use fixed to cover the entire viewport regardless of scroll */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7); /* White overlay with 70% opacity */
+      z-index: -1; /* Place it behind content but above the background image */
+    }
+
+
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    /* Navigation Styles - Integrated for dropdown */
+    nav {
+      background-color: #333; /* Dark background for nav */
+      padding: 10px 0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .navbar {
+      display: flex;
+      list-style: none; /* Remove bullet points */
+      margin: 0;
+      padding: 0;
+      justify-content: center; /* Center the navigation items */
+    }
+
+    .navbar li {
+      position: relative; /* Needed for dropdown positioning */
+      display: inline-block; /* Crucial for stable dropdown hover/positioning */
+      margin: 0 15px; /* Spacing between main nav items */
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 15px; /* Added horizontal padding for a larger clickable area */
+      display: block; /* Make the whole link area clickable */
+    }
+
+    .navbar a:hover {
+      background-color: #34495e; /* Hover background for main links */
+      text-decoration: none; /* Remove underline on hover for consistent look with dropdowns */
+    }
+
+    /* Dropdown specific styles */
+    .dropdown-menu { /* Renamed for clarity and consistency */
+      display: none; /* Hidden by default */
+      position: absolute;
+      background-color: #34495e; /* Darker background for dropdown */
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 2; /* Ensure it appears above other content and main nav */
+      left: 0; /* Align dropdown with the left edge of the parent li */
+      border-radius: 5px;
+      overflow: hidden; /* Ensures border-radius applies to children */
+      margin: 0; /* Explicitly set margin to 0 to prevent gaps */
+      padding: 0; /* Ensure no default padding from ul */
+      list-style: none; /* Remove bullet points from dropdown ul */
+      pointer-events: auto; /* Ensure clicks are enabled */
+    }
+
+    .dropdown-menu li { /* Style for list items within dropdown */
+        width: 100%; /* Ensure li takes full width of dropdown-menu */
+    }
+
+    .dropdown-menu a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left; /* Align text to the left within dropdown */
+      font-weight: normal; /* Override bold from main nav */
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #555; /* Highlight on hover */
+      text-decoration: none;
+    }
+
+    /* Show dropdown on hover */
+    .navbar li:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Arrow for dropdowns */
+    .navbar a.dropdown-toggle::after {
+        content: ' \25BC'; /* Down arrow character */
+        font-size: 0.7em;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+
+    /* Main content styles for this page */
+    .card-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 40px 20px; /* Add padding similar to container */
+      flex-grow: 1; /* Allows the content area to grow and push footer down */
+      background-color: rgba(255, 255, 255, 0.9); /* Add a white background for readability */
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: 20px auto; /* Add margin to center it and separate from nav/footer */
+      max-width: 1200px; /* Constrain width for better layout */
+    }
+
+    .card {
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+      text-decoration: none; /* Remove underline from card links */
+      color: #333; /* Ensure text color is readable */
+      width: 220px; /* Adjust card width */
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: contain; /* Use 'contain' to show full logo without cropping */
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: #004080;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: auto; /* Push footer to the bottom */
+      position: relative;
+      z-index: 1;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive (Optional) */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .navbar li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .dropdown-menu a {
+        padding-left: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Akhbar Digital</h1>
+    <nav>
+      <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutme.html">About Me</a></li>
+        <li><a href="newspaper.html">E-Newspaper</a></li>
+        <li class="dropdown">
+          <a href="nilam.html" class="dropdown-toggle">Nilam</a>
+          <ul class="dropdown-menu">
+            <li><a href="Borrow books.html">Borrow and Return</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+          <a href="event.html" class="dropdown-toggle">Events</a>
+          <ul class="dropdown-menu">
+            <li><a href="books collection.html">Books</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="contact.html" class="dropdown-toggle">Contact</a>
+          <ul class="dropdown-menu">
+            <li><a href="maklumat.html">Maklumat Sekolah</a></li>
+            <li><a href="sejarah.html">Sejarah Sekolah</a></li>
+            <li><a href="visi.html">Visi Misi</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="card-grid">
+    <a href="https://www.bharian.com.my/" target="_blank" class="card">
+      <img src="bh.png" alt="Berita Harian">
+      <p>Berita Harian</p>
+    </a>
+
+    <a href="https://www.utusan.com.my/" target="_blank" class="card">
+      <img src="um.png" alt="Utusan">
+      <p>Utusan Malaysia</p>
+    </a>
+
+    <a href="https://www.nst.com.my/" target="_blank" class="card">
+      <img src="NST.png" alt="New Straight Times">
+      <p>New Straight Times</p>
+    </a>
+
+    </section>
+<footer>
+  <p>This website for study purpose for code IMS458. Best Browser. Google Chrome. Best viewed on any displays &copy; All right reserve &copy;</p>
+</footer>
+</body>
+</html>
